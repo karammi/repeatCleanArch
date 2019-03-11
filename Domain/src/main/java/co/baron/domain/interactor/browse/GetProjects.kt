@@ -7,15 +7,13 @@ import co.baron.domain.repository.ProjectsRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-/**
- * Created by asad on 10/03/19.
- */
-class GetProjects @Inject constructor(private val projectsRepository: ProjectsRepository,
-                                      postExecutionThread: PostExecutionThread) :
-        ObservableUseCase<List<Project>, Nothing>(postExecutionThread) {
+
+class GetProjects @Inject constructor(
+        private val projectsRepository: ProjectsRepository,
+        postExecutionThread: PostExecutionThread)
+    : ObservableUseCase<List<Project>, Nothing?>(postExecutionThread) {
 
     override fun buildUseCaseObservable(params: Nothing?): Observable<List<Project>> {
         return projectsRepository.getProjects()
     }
-
 }
