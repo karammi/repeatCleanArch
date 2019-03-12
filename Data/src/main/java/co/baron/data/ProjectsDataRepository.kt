@@ -20,7 +20,7 @@ class ProjectsDataRepository @Inject constructor(
 
 
     override fun getProjects(): Observable<List<Project>> {
-        
+
         return Observable.zip(
                 cache.areProjectsCached().toObservable(),
                 cache.isProjectsCacheExpired().toObservable(),
@@ -30,12 +30,13 @@ class ProjectsDataRepository @Inject constructor(
             factory.getDataStore(it.first, it.second)
                     .getProjects()
                     .distinctUntilChanged()
+                    .toObservable()
         }.flatMap { projects ->
             factory.getCacheDataStore()
                     .saveProjects(projects)
                     .andThen(
                             factory.getCacheDataStore()
-                                    .getProjects()
+                                    .getProjects().toObservable()
                     )
         }.map { list -> list.map { mapper.mapFromEntity(it) } }
 
@@ -61,15 +62,17 @@ class ProjectsDataRepository @Inject constructor(
 //        }.map { list -> list.map { mapper.mapFromEntity(it) } }
     }
 
+
     override fun bookmarkedProject(projectId: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.getCacheDataStore().setProjectAsBookmarked(projectId)
     }
 
     override fun unBookmarkedProject(projectId: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.getCacheDataStore().setProjectAsNotBookmarked(projectId)
     }
 
     override fun getBookmarkedProjects(): Observable<List<Project>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.getCacheDataStore().getBookmarkedProjects()
+                .map { it.map { mapper.mapFromEntity(it) } }
     }
 }

@@ -4,6 +4,7 @@ import co.baron.data.model.ProjectEntity
 import co.baron.data.repository.ProjectDataStore
 import co.baron.data.repository.ProjectsRemote
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -13,7 +14,8 @@ import javax.inject.Inject
 class ProjectsRemoteDataStore @Inject constructor(
         private val projectsRemote: ProjectsRemote
 ) : ProjectDataStore {
-    override fun getProjects(): Observable<List<ProjectEntity>> {
+//    override fun getProjects(): Observable<List<ProjectEntity>> {
+    override fun getProjects(): Flowable<List<ProjectEntity>> {
         return projectsRemote.getProjects()
     }
 

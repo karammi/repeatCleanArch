@@ -2,6 +2,7 @@ package co.baron.data.repository
 
 import co.baron.data.model.ProjectEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -14,7 +15,7 @@ interface ProjectsCache {
 
     fun saveProjects(projects: List<ProjectEntity>): Completable
 
-    fun getProjects(): Observable<List<ProjectEntity>>
+    fun getProjects(): Flowable<List<ProjectEntity>>
 
     fun getBookmarkedProjects(): Observable<List<ProjectEntity>>
 

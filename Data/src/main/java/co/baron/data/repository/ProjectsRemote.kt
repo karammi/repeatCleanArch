@@ -1,6 +1,7 @@
 package co.baron.data.repository
 
 import co.baron.data.model.ProjectEntity
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
@@ -8,5 +9,6 @@ import io.reactivex.Observable
  */
 interface ProjectsRemote {
 
-    fun getProjects(): Observable<List<ProjectEntity>>
+//    fun getProjects(): Observable<List<ProjectEntity>>
+    fun getProjects(): Flowable<List<ProjectEntity>>
 }
