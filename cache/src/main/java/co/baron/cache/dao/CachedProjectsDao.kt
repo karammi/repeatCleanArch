@@ -27,4 +27,7 @@ abstract class CachedProjectsDao {
     abstract fun getBookamrkedProjects(): Flowable<List<CachedProject>>
 
 
+    @Query(ProjectConstant.QUERY_UPDATE_BOOKMARK_STATUS)
+    abstract fun setBookmarkStatus(isBookmarked: Boolean,
+                                   projectId: String)
 }

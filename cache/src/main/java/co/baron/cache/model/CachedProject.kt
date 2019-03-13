@@ -11,6 +11,7 @@ import co.baron.cache.db.ProjectConstant
 @Entity(tableName = ProjectConstant.TABLE_NAME)
 data class CachedProject(
         @PrimaryKey
+        @ColumnInfo(name = ProjectConstant.COLUMN_PROJECT_ID)
         var id: String,
         var name: String,
         var fullName: String,
